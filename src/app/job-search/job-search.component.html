@@ -1,0 +1,40 @@
+<div class="filters">
+
+  <h3>Filters</h3>
+
+  <mat-form-field>
+    <input matInput placeholder="Description" [(ngModel)]="description" (ngModelChange)="search()">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Location" [(ngModel)]="location" (ngModelChange)="search()">
+  </mat-form-field>
+
+  <section>
+    <mat-checkbox [value]="true" [(ngModel)]="fullTime" (ngModelChange)="search($event)">
+      Full-time
+    </mat-checkbox>
+  </section>
+</div>
+
+<div class="jobs">
+
+  <mat-progress-bar *ngIf="loading"
+                    mode="indeterminate"></mat-progress-bar>
+
+  <h3>Jobs</h3>
+
+
+  <mat-list *ngIf="!loading">
+
+    <mat-list-item *ngFor="let job of jobs">
+
+      <img *ngIf="job.company_logo"
+           mat-list-avatar [src]="job.company_logo" alt="">
+
+      <h4 mat-line>{{ job.title }}</h4>
+      <h5 mat-line>{{ job.company }}</h5>
+      <p mat-line>{{ job.created_at | date: 'medium' }}</p>
+    </mat-list-item>
+  </mat-list>
+</div>

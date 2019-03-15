@@ -1,0 +1,9 @@
+<h3>Settings</h3>
+
+<section>
+  <mat-checkbox [value]="true" [(ngModel)]="mockEnabled">
+    Full-time
+  </mat-checkbox>
+</section>
+
+<button mat-raised-button color="primary" (click)="save()">Save</button>

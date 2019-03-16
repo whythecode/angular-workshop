@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -20,6 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { JobSearchComponent } from './job-search/job-search.component';
 import { SettingsComponent } from './settings/settings.component';
+import { MockInterceptor } from './shared/mock.interceptor';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,9 @@ import { SettingsComponent } from './settings/settings.component';
       },
     }),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: MockInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

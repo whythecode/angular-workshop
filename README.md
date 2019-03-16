@@ -1,5 +1,14 @@
 # Job Search
 
+This example is divided into 3 stages, in the following branches:
+stage1 (translations)
+stage2 (interceptor)
+stage3 (rxjs)
+
+Check the commits to see what changed in each stage.
+
+# Angular Info
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.1.
 
 ## Development server

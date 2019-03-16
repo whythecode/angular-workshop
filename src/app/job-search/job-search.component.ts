@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { Job } from './job.interface';
 
 @Component({
@@ -8,13 +11,13 @@ import { Job } from './job.interface';
 })
 export class JobSearchComponent implements OnInit {
 
-  jobs: Job[];
+  jobs$: Observable<Job[]>;
 
-  description = '';
-
-  location = '';
-
-  fullTime = false;
+  form = new FormGroup({
+    description: new FormControl(''),
+    location: new FormControl(''),
+    fullTime: new FormControl(false),
+  });
 
   loading = false;
 
@@ -24,24 +27,30 @@ export class JobSearchComponent implements OnInit {
 
   ngOnInit () {
 
-    this.search();
+    this.jobs$ = this.form.valueChanges.pipe(
+      startWith(this.form.value),
+      debounceTime(500),
+      distinctUntilChanged(),
+      tap(() => this.loading = false),
+      map(params => this.getParams(params)),
+      switchMap(params => this.httpClient.get<Job[]>(this.apiUrl, { params })),
+      tap(() => this.loading = false),
+    );
   }
 
-  public search () {
+  getParams (formObj) {
 
-    this.loading = true;
+    // the GitHub API doesn't like empty params, so we only pass on the ones that are not empty
 
-    const params = {
-      description: this.description,
-      location: this.location,
-      full_time: (!!this.fullTime).toString(),
-    };
+    return Object.keys(formObj).reduce((params, paramKey) => {
 
-    this.httpClient.get<Job[]>(this.apiUrl, { params }).subscribe(jobs => {
+      const value = formObj[paramKey];
 
-      this.loading = false;
+      if (value) {
+        params[paramKey] = value;
+      }
 
-      this.jobs = jobs;
-    });
+      return params;
+    }, {});
   }
 }

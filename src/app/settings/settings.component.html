@@ -1,9 +1,11 @@
-<h3>Settings</h3>
+<h3>{{ 'Settings.title' | translate }}</h3>
 
 <section>
   <mat-checkbox [value]="true" [(ngModel)]="mockEnabled">
-    Full-time
+    {{ 'Settings.mockEnabled' | translate }}
   </mat-checkbox>
 </section>
 
-<button mat-raised-button color="primary" (click)="save()">Save</button>
+<button mat-raised-button color="primary" (click)="save()">
+  {{ 'Actions.save' | translate }}
+</button>

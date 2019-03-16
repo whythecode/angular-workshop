@@ -1,18 +1,24 @@
 <div class="filters">
 
-  <h3>Filters</h3>
+  <h3>{{ 'JobSearch.filters.title' | translate }}</h3>
 
   <mat-form-field>
-    <input matInput placeholder="Description" [(ngModel)]="description" (ngModelChange)="search()">
+    <input matInput
+           [placeholder]="'JobSearch.filters.description' | translate"
+           [(ngModel)]="description"
+           (ngModelChange)="search()">
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Location" [(ngModel)]="location" (ngModelChange)="search()">
+    <input matInput
+           [placeholder]="'JobSearch.filters.location' | translate"
+           [(ngModel)]="location"
+           (ngModelChange)="search()">
   </mat-form-field>
 
   <section>
     <mat-checkbox [value]="true" [(ngModel)]="fullTime" (ngModelChange)="search($event)">
-      Full-time
+      {{ 'JobSearch.filters.fullTime' | translate }}
     </mat-checkbox>
   </section>
 </div>
@@ -22,7 +28,7 @@
   <mat-progress-bar *ngIf="loading"
                     mode="indeterminate"></mat-progress-bar>
 
-  <h3>Jobs</h3>
+  <h3>{{ 'JobSearch.jobs.title' | translate }}</h3>
 
 
   <mat-list *ngIf="!loading">

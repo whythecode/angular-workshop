@@ -1,0 +1,23 @@
+{
+  "App": {
+    "title": "Job Search"
+  },
+  "JobSearch": {
+    "filters": {
+      "title": "Filters",
+      "description": "Description",
+      "location": "Location",
+      "fullTime": "Full-time only"
+    },
+    "jobs": {
+      "title": "Jobs"
+    }
+  },
+  "Settings": {
+    "title": "Settings",
+    "mockEnabled": "Use Mocks"
+  },
+  "Actions": {
+    "save": "Save"
+  }
+}
